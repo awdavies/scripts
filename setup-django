@@ -54,3 +54,7 @@ fi
 echo
 read -p "Install/Update Django? (y/n) "
 [ "$REPLY" == "n" ] || $ENV/bin/pip install -e "$TRUNK"
+echo
+echo "NOTE: If you want to run python with the virtual env"
+echo "NOTE: Run '~/PYENV/bin/python'"
+echo "NOTE: Django has been set up to do this by default."
