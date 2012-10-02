@@ -1,9 +1,12 @@
 #!/bin/bash
 #
+# Copyright 2012 -- Andrew Davies <a.w.davies.vio@gmail.com>
+#
 # This should set up the virtual python environment
 # as well as all of the git stuff.  This script isn't
-# at all intended to be robust, and you should probably
-# only run it once.
+# super robust, so just try to make sure to follow the
+# comments on the notes if things go awry.
+# contact me via my git email if you have any questions.
 
 ENV="/homes/iws/`whoami`/PYENV"
 TRUNK="django-trunk"
