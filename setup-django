@@ -1,0 +1,56 @@
+#!/bin/bash
+#
+# This should set up the virtual python environment
+# as well as all of the git stuff.  This script isn't
+# at all intended to be robust, and you should probably
+# only run it once.
+
+ENV="/homes/iws/`whoami`/PYENV"
+TRUNK="django-trunk"
+SOURCE="https://github.com/django/django.git"
+
+if [ -d $TRUNK ]; then
+	echo "NOTE: $TRUNK exists.  Checking for updates"
+	if [ ! -d $TRUNK/.git ]; then
+		echo "NOTE: No '.git' file found in $TRUNK"
+		echo "NOTE: Either edit the TRUNK name in this script"
+		echo "NOTE: Or remove $TRUNK"
+	else
+		echo "NOTE: '.git' file found.  Attempting update."
+		echo "NOTE: Entering $TRUNK"
+		cd $TRUNK
+		git pull
+		echo "NOTE: Leaving $TRUNK"
+		cd ../
+		if [ ! $? ]; then
+			echo "ERROR: git pull.  Exiting"
+			exit 1
+		fi
+	fi
+else
+	echo "NOTE: Checking out $TRUNK"
+	git clone $SOURCE $TRUNK
+
+	if [ ! $? ]; then
+		echo "ERROR: Some git error occured. Exiting..."
+		exit 1
+	fi
+fi
+
+if [ -d $ENV ]; then
+	echo "NOTE: $ENV dir exists.  Skipping virtualenv setup."
+	echo "NOTE: If this isn't correct, simply remove the"
+	echo "NOTE:   directory at $ENV"
+else
+	# Set up a virtual ENV that is in the home folder.
+	virtualenv $ENV
+
+	if [ ! $? ]; then
+		echo "ERROR: virtual env.  Exiting..."
+		exit 1
+	fi
+fi
+
+echo
+read -p "Install/Update Django? (y/n) "
+[ "$REPLY" == "n" ] || $ENV/bin/pip install -e "$TRUNK"
