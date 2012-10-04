@@ -1,4 +1,4 @@
 #!/bin/bash
 . .vpython-vars
-export PATH="$ENV:$PATH/bin"  # set the python env first so it's found first!
+export PATH="$ENV/bin:$PATH"  # set the python env first so it's found first!
 export PS1="$PS1\[\033[31;40m\][\[\033[00m\]PYENV\[\033[31;40m\]]\[\033[00m\] >>> "
