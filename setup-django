@@ -25,10 +25,18 @@ else
   exit 1
 fi
 
+if [ -z $2 ]; then
+  echo "`basename $0` version 0.1"
+  echo "Usage: `basename $0` INSTALL_DIR"
+  exit 1
+else
+  INSTALL_DIR=$2
+fi
+
 # Update if trunk exists, else download trunk.
-if [ -d $TRUNK ]; then
+if [ -d "$INSTALL_DIR/$TRUNK" ]; then
 	echo "NOTE: $TRUNK exists.  Checking for updates"
-	if [ ! -d $TRUNK/.git ]; then
+	if [ ! -d "$INSTALL_DIR/$TRUNK/.git" ]; then
 		echo "NOTE: No '.git' file found in $TRUNK"
 		echo "NOTE: Either edit the TRUNK name in this script"
 		echo "NOTE: Or remove $TRUNK"
@@ -45,8 +53,8 @@ if [ -d $TRUNK ]; then
 		fi
 	fi
 else
-	echo "NOTE: Checking out $TRUNK"
-	git clone $SOURCE $TRUNK
+	echo "NOTE: Checking out to $INSTALL_DIR/$TRUNK"
+	git clone $SOURCE "$INSTALL_DIR/$TRUNK"
 
 	if [ ! $? ]; then
 		echo "ERROR: Some git error occured. Exiting..."
@@ -72,7 +80,7 @@ fi
 
 echo
 read -p "Install/Update Django? (y/n) "
-[ "$REPLY" == "n" ] || $ENV/bin/pip install -e "$TRUNK"
+[ "$REPLY" == "n" ] || $ENV/bin/pip install -e "$INSTALL_DIR/$TRUNK"
 echo
 echo "NOTE: If you want to run python with the virtual env"
 echo "NOTE: Run '~/PYENV/bin/python'"
