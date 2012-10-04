@@ -9,6 +9,7 @@ len=`expr length $(basename $0)`
 sauce_dir=${0:0:-$len}
 
 VARS_FILE="$sauce_dir/.vpython-vars"
+GLOB_FILE="$sauce_dir/.vpython-globals"
 
 if [ -e $VARS_FILE ]; then
   . $VARS_FILE
@@ -22,5 +23,4 @@ echo 'Simply hit CTRL-D or type the "exit" command to exit.'
 echo "Trust me. You'll be fine."
 
 # Setup the environment!
-export PATH="$ENV:$PATH"  # set the python env first so it's found first!
-export PS1="$PS1\[\033[31;40m\][\[\033[00m\]PYENV\[\033[31;40m\]]\[\033[00m\] >>>"
+/bin/bash 
