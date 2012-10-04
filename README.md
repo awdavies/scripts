@@ -36,7 +36,9 @@ this if you're some weirdo and you don't like writing the full paths for
 django-aware python stuff.
 
 If you want to run python, simply type in python, and python will be run
-through the virtual environment.
+through the virtual environment.  If you've already installed django, then
+writing "import django" in the python shell should throw no errors.  If it
+does, then I (the jerk that wrote this script) have failed miserably.
 
 ** If you want to know (be confused about) how the virtual environment works
 (and who the hell doesn't?), then scroll down to the appropriate,
