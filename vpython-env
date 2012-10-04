@@ -18,9 +18,14 @@ else
   exit 1
 fi
 
+if [ ! -e $GLOB_FILE ]; then
+  echo "ERROR: $GLOB_FILE not found.  Needed for env globals."
+  exit 1
+fi
+
 echo 'Entering virtual python environment.  Fear not, peasant!'
 echo 'Simply hit CTRL-D or type the "exit" command to exit.'
 echo "Trust me. You'll be fine."
 
 # Setup the environment!
-/bin/bash 
+bash --rcfile $GLOB_FILE
