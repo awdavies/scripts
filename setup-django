@@ -30,7 +30,7 @@ if [ -z $1 ]; then
   echo "Usage: `basename $0` INSTALL_DIR"
   exit 1
 else
-  INSTALL_DIR=$2
+  INSTALL_DIR=$1
 fi
 
 # Update if trunk exists, else download trunk.
@@ -39,13 +39,13 @@ if [ -d "$INSTALL_DIR/$TRUNK" ]; then
 	if [ ! -d "$INSTALL_DIR/$TRUNK/.git" ]; then
 		echo "NOTE: No '.git' file found in $TRUNK"
 		echo "NOTE: Either edit the TRUNK name in this script"
-		echo "NOTE: Or remove $TRUNK"
+		echo "NOTE: Or remove $INSTALL_DIR/$TRUNK"
 	else
 		echo "NOTE: '.git' file found.  Attempting update."
-		echo "NOTE: Entering $TRUNK"
-		cd $TRUNK
+		echo "NOTE: Entering $INSTALL_DIR/$TRUNK"
+		cd "$INSTALL_DIR/$TRUNK"
 		git pull
-		echo "NOTE: Leaving $TRUNK"
+		echo "NOTE: Leaving $INSTALL_DIR/$TRUNK"
 		cd ../
 		if [ ! $? ]; then
 			echo "ERROR: git pull.  Exiting"
