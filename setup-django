@@ -2,13 +2,43 @@
 #
 # Copyright 2012 -- Andrew Davies <a.w.davies.vio@gmail.com>
 #
-# This should set up the virtual python environment
-# as well as all of the git stuff.  This script isn't
-# super robust, so just try to make sure to follow the
-# comments on the notes if things go awry.
-# contact me via my git email if you have any questions.
+# This script allows the user to setup python in a virtual
+# environment so that pip (a python package installer) can install
+# the latest git version of django on the computer without need for
+# root permissions.
+#
+# README:
+#
+# The script works as follows:
+#
+# 1.) The script first downloads the latest version of django
+#     from the git repo.  This will be checked out to the global
+#     trunk variable.  Make sure the script is in the folder you'd
+#     like to have contain your trunk folder.  
+#
+#     For example, if one wanted to have their django install
+#     to be in the "/home/user/cowdung/" folder, you would copy
+#     the script into "/home/user/cowdung/" and run it in there.
+#     
+#     You would then have a folder called "django-trunk" (by default)
+#     in the "/home/user/cowdung/" folder.  It is recommended to keep
+#     the folder so that one can update django later.
+#
+# 2.) A folder is created in the user's home directory called PYENV.
+#     this will serve as a virtual environment for python, and will
+#     be the location of the virtual python environment and the django
+#     installation (more description on a virtual environment and how
+#     to use it (and love it!) follows).
+#
+# 3.) After the virtual environment is installed, pip (a python package
+#     installer) is used to install django from the folder that was
+#     downloaded from git (at the user's discretion, of course).  It 
+#     will be installed in the python package folder within the PYENV folder.
+#
+#
 
-ENV="/homes/iws/`whoami`/PYENV"
+
+ENV="`eval echo ~`/PYENV"
 TRUNK="django-trunk"
 SOURCE="https://github.com/django/django.git"
 
