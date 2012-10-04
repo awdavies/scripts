@@ -25,7 +25,7 @@ else
   exit 1
 fi
 
-if [ -z $2 ]; then
+if [ -z $1 ]; then
   echo "`basename $0` version 0.1"
   echo "Usage: `basename $0` INSTALL_DIR"
   exit 1
