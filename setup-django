@@ -7,41 +7,24 @@
 # the latest git version of django on the computer without need for
 # root permissions.
 #
-# README:
+# This file depends on the vars folder "vpython-vars" by the way,
+# so run this file in the same folder as said vpython-vars file.
 #
-# The script works as follows:
-#
-# 1.) The script first downloads the latest version of django
-#     from the git repo.  This will be checked out to the global
-#     trunk variable.  Make sure the script is in the folder you'd
-#     like to have contain your trunk folder.  
-#
-#     For example, if one wanted to have their django install
-#     to be in the "/home/user/cowdung/" folder, you would copy
-#     the script into "/home/user/cowdung/" and run it in there.
-#     
-#     You would then have a folder called "django-trunk" (by default)
-#     in the "/home/user/cowdung/" folder.  It is recommended to keep
-#     the folder so that one can update django later.
-#
-# 2.) A folder is created in the user's home directory called PYENV.
-#     this will serve as a virtual environment for python, and will
-#     be the location of the virtual python environment and the django
-#     installation (more description on a virtual environment and how
-#     to use it (and love it!) follows).
-#
-# 3.) After the virtual environment is installed, pip (a python package
-#     installer) is used to install django from the folder that was
-#     downloaded from git (at the user's discretion, of course).  It 
-#     will be installed in the python package folder within the PYENV folder.
-#
-#
+# Now, go read the poorly-written readme.
+len=`expr length $(basename $0)` 
+sauce_dir=${0:0:-$len}
 
+VAR_FILE="$sauce_dir/.vpython-vars";
 
-ENV="`eval echo ~`/PYENV"
-TRUNK="django-trunk"
-SOURCE="https://github.com/django/django.git"
+# Does the var file exist?
+if [ -e "$VAR_FILE" ]; then
+  . $VAR_FILE
+else
+  echo "ERROR: $VAR_FILE not found."
+  exit 1
+fi
 
+# Update if trunk exists, else download trunk.
 if [ -d $TRUNK ]; then
 	echo "NOTE: $TRUNK exists.  Checking for updates"
 	if [ ! -d $TRUNK/.git ]; then
@@ -70,6 +53,7 @@ else
 	fi
 fi
 
+# Install environment!  Skip if it exists.
 if [ -d $ENV ]; then
 	echo "NOTE: $ENV dir exists.  Skipping virtualenv setup."
 	echo "NOTE: If this isn't correct, simply remove the"
@@ -78,6 +62,7 @@ else
 	# Set up a virtual ENV that is in the home folder.
 	virtualenv $ENV
 
+  # Exit if there was a problem setting up the env.
 	if [ ! $? ]; then
 		echo "ERROR: virtual env.  Exiting..."
 		exit 1

@@ -1,5 +1,7 @@
 ============ README ==============
 
+=== SETUP DJANGO ===
+
 The script works as follows:
 
 1.)  The script first downloads the latest version of django
@@ -25,6 +27,20 @@ The script works as follows:
      installer) is used to install django from the folder that was
      downloaded from git (at the user's discretion, of course).  It 
      will be installed in the python package folder within the PYENV folder.
+
+=== VPYTHON-ENV ===
+
+This script runs with the special python virtual environment** so that your
+shell automatically finds python through said environment.  Only use
+this if you're some weirdo and you don't like writing the full paths for
+django-aware python stuff.
+
+If you want to run python, simply type in python, and python will be run
+through the virtual environment.
+
+** If you want to know (be confused about) how the virtual environment works
+(and who the hell doesn't?), then scroll down to the appropriate,
+professionally labeled, section of the readme.
 
 =========== WTF IS A VIRTUAL ENVIRONMENT AND WHY DO I WANT IT? ==========
 
@@ -77,6 +93,10 @@ If you paid attention to the readme, you'd know that the absolute path of
 this environment is in your home folder: "/homes/iws/batmanstick/PYENV"
 so, for now, in order to run the django-aware python, one needs to write:
 
-/homes/iws/batmanstick/PYENV/bin/python (if you write this literally, you're an idiot by the way)
+/homes/iws/batmanstick/PYENV/bin/python (if you write this verbatim, you're an idiot.)
 
-
+But!  If you want to have a fun time not being frustrated with this, there's
+a special python script called "vpython-env" included in the package that contains
+the python environment.  It changes the prompt so that you can't forget you're in 
+a virtual environment that contains the wacky-different version of python that runs
+separate from regular python.
