@@ -2,6 +2,5 @@
 #
 # These are just the vars for installing/handling django
 # stuff.
-ENV="`eval echo ~`/PYENV"
-TRUNK="django-trunk"
+ENV="`pwd`/PYENV"
 SOURCE="https://github.com/django/django.git"

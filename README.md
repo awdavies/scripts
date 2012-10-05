@@ -27,22 +27,6 @@ The script works as follows:
      downloaded from git (at the user's discretion, of course).  It 
      will be installed in the python package folder within the PYENV folder.
 
-=== VPYTHON-ENV ===
-
-This script runs with the special python virtual environment** so that your
-shell automatically finds python through said environment.  Only use
-this if you're some weirdo and you don't like writing the full paths for
-django-aware python stuff.
-
-If you want to run python, simply type in python, and python will be run
-through the virtual environment.  If you've already installed django, then
-writing "import django" in the python shell should throw no errors.  If it
-does, then I (the jerk that wrote this script) have failed miserably.
-
-** If you want to know (be confused about) how the virtual environment works
-(and who the hell doesn't?), then scroll down to the appropriate,
-professionally labeled, section of the readme.
-
 =========== WTF IS A VIRTUAL ENVIRONMENT AND WHY DO I WANT IT? ==========
 
 If you'd like to skip all this, go read a book on operating systems.  It's
