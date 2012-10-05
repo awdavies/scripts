@@ -16,6 +16,7 @@ sauce_dir=${0:0:-$len}
 
 VAR_FILE="$sauce_dir/.vpython-vars";
 GLOB_FILE="$sauce_dir/.vpython-globals"
+TRUNK_FILE="`eval echo ~`/.django_trunk"
 
 # Does the var file exist?
 if [ -e "$VAR_FILE" ]; then
@@ -25,27 +26,47 @@ else
   exit 1
 fi
 
-if [ -z $1 ]; then
+# If there's no trunk file and no param, then exit.
+if [ -z $1 ] && [ ! -e ~/.django_trunk ]; then
   echo "`basename $0` version 0.1"
   echo "Usage: `basename $0` INSTALL_DIR"
   exit 1
+fi
+
+# Get the directory either from the param or the trunk
+# file.
+if [ ! -z $1 ]; then
+	if [ -e $TRUNK_FILE ]; then
+		RM_DIR=`cat $TRUNK_FILE`
+		echo "WARNING: About to remove old trunk at $RMDIR"
+		read -p "Continue? (Y/n) "
+		[ "$REPLY" == "n" ] || rm -rf $RM_DIR
+		echo "NOTE: New trunk will be created."
+		echo "NOTE: Old trunk will be left alone."
+	fi
+
+	cd $1
+	BASEDIR=`pwd`
+	cd -
+  TRUNK=$BASEDIR/$TRUNK
+	echo $TRUNK > $TRUNK_FILE
 else
-  INSTALL_DIR=$1
+	TRUNK=`cat $TRUNK_FILE`
 fi
 
 # Update if trunk exists, else download trunk.
-if [ -d "$INSTALL_DIR/$TRUNK" ]; then
+if [ -d "$TRUNK" ]; then
 	echo "NOTE: $TRUNK exists.  Checking for updates"
-	if [ ! -d "$INSTALL_DIR/$TRUNK/.git" ]; then
+	if [ ! -d "$TRUNK/.git" ]; then
 		echo "NOTE: No '.git' file found in $TRUNK"
 		echo "NOTE: Either edit the TRUNK name in this script"
-		echo "NOTE: Or remove $INSTALL_DIR/$TRUNK"
+		echo "NOTE: Or remove $TRUNK"
 	else
 		echo "NOTE: '.git' file found.  Attempting update."
-		echo "NOTE: Entering $INSTALL_DIR/$TRUNK"
-		cd "$INSTALL_DIR/$TRUNK"
+		echo "NOTE: Entering $TRUNK"
+		cd "$TRUNK"
 		git pull
-		echo "NOTE: Leaving $INSTALL_DIR/$TRUNK"
+		echo "NOTE: Leaving $TRUNK"
 		cd ../
 		if [ ! $? ]; then
 			echo "ERROR: git pull.  Exiting"
@@ -53,8 +74,8 @@ if [ -d "$INSTALL_DIR/$TRUNK" ]; then
 		fi
 	fi
 else
-	echo "NOTE: Checking out to $INSTALL_DIR/$TRUNK"
-	git clone $SOURCE "$INSTALL_DIR/$TRUNK"
+	echo "NOTE: Checking out to $TRUNK"
+	git clone $SOURCE "$TRUNK"
 
 	if [ ! $? ]; then
 		echo "ERROR: Some git error occured. Exiting..."
@@ -80,7 +101,7 @@ fi
 
 echo
 read -p "Install/Update Django? (y/n) "
-[ "$REPLY" == "n" ] || $ENV/bin/pip install -e "$INSTALL_DIR/$TRUNK"
+[ "$REPLY" == "n" ] || $ENV/bin/pip install -e "$TRUNK"
 echo
 echo "NOTE: If you want to run python with the virtual env"
 echo "NOTE: Run '~/PYENV/bin/python'"

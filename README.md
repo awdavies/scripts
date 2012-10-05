@@ -6,16 +6,15 @@ The script works as follows:
 
 1.)  The script first downloads the latest version of django
      from the git repo.  This will be checked out to the global
-     trunk variable.  Make sure the script is in the folder you'd
-     like to have contain your trunk folder.  
+		 trunk variable folder (inside of whatever folder parameter
+		 is passed).
 
-     For example, if one wanted to have their django install
-     to be in the "/home/user/cowdung/" folder, you would copy
-     the script into "/home/user/cowdung/" and run it in there.
-     
-     You would then have a folder called "django-trunk" (by default)
-     in the "/home/user/cowdung/" folder.  It is recommended to keep
-     the folder so that one can update django later.
+		 This will then create a hidden file in the home directory that
+		 specifies the location of the trunk so that the param is not needed
+		 later.  The default name of this file is ~/.django_trunk.
+		 Changing the parameter will change the location of the trunk
+		 and remove the old trunk.
+		
 
 2.)  A folder is created in the user's home directory called PYENV.
      this will serve as a virtual environment for python, and will
