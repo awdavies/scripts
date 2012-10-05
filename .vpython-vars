@@ -1,6 +1,0 @@
-#!/bin/bash
-#
-# These are just the vars for installing/handling django
-# stuff.
-ENV="`pwd`/PYENV"
-SOURCE="https://github.com/django/django.git"
