@@ -7,9 +7,6 @@
 # the latest git version of django on the computer without need for
 # root permissions.
 #
-# This file depends on the vars folder "vpython-vars" by the way,
-# so run this file in the same folder as said vpython-vars file.
-#
 # Now, go read the poorly-written readme.
 ENV="`pwd`/PYENV"
 SOURCE="https://github.com/django/django.git"
@@ -40,5 +37,5 @@ read -p "Install/Update dj-database-url? (Y/n) "
 [ "$REPLY" == "n" ] || $ENV/bin/pip install dj-database-url
 echo
 echo "NOTE: If you want to run python with the virtual env"
-echo "NOTE: Run '~/PYENV/bin/python'"
+echo "NOTE: Run './PYENV/bin/python' from the installation directory."
 echo "NOTE: Django has been set up to do this by default."

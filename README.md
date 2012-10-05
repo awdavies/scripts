@@ -74,11 +74,11 @@ and since this isn't appended to the /etc/profile environmental variable,
 one needs to write the absolute path in order to run this "special" version of 
 python that knows about the django installation.
 
-If you paid attention to the readme, you'd know that the absolute path of
-this environment is in your home folder: "/homes/iws/batmanstick/PYENV"
-so, for now, in order to run the django-aware python, one needs to write:
+If you read earlier, the location of this folder is in whatever folder "setup-django"
+was run.  To run python through the virtual environment, you need to run it like this
+from the aforementioned install directory:
 
-/homes/iws/batmanstick/PYENV/bin/python (if you write this verbatim, you're an idiot.)
+./PYENV/bin/python 
 
 But!  If you want to have a fun time not being frustrated with this, there's
 a special python script called "vpython-env" included in the package that contains
