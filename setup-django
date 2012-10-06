@@ -18,7 +18,7 @@ if [ -d $ENV ]; then
 	echo "NOTE:   directory at $ENV"
 else
 	# Set up a virtual ENV that is in the home folder.
-	virtualenv $ENV
+	virtualenv $ENV --distribute
 
   # Exit if there was a problem setting up the env.
 	if [ ! $? ]; then
