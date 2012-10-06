@@ -10,6 +10,7 @@
 # Now, go read the poorly-written readme.
 ENV="`pwd`/PYENV"
 SOURCE="https://github.com/django/django.git"
+REQ_FILE="requirements.txt"
 
 # Install environment!  Skip if it exists.
 if [ -d $ENV ]; then
@@ -36,6 +37,8 @@ read -p "Install/Update psycopg2 (postgres for python)? (Y/n) "
 read -p "Install/Update dj-database-url? (Y/n) "
 [ "$REPLY" == "n" ] || $ENV/bin/pip install dj-database-url
 echo
+echo "NOTE: Writing requirements to $REQ_FILE"
+$ENV/bin/pip freeze > $REQ_FILE
 echo "NOTE: If you want to run python with the virtual env"
 echo "NOTE: Run './PYENV/bin/python' from the installation directory."
 echo "NOTE: Django has been set up to do this by default."

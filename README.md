@@ -4,28 +4,24 @@
 
 The script works as follows:
 
-1.)  The script first downloads the latest version of django
-     from the git repo.  This will be checked out to the global
-		 trunk variable folder (inside of whatever folder parameter
-		 is passed).
-
-		 This will then create a hidden file in the home directory that
-		 specifies the location of the trunk so that the param is not needed
-		 later.  The default name of this file is ~/.django_trunk.
-		 Changing the parameter will change the location of the trunk
-		 and remove the old trunk.
-		
-
-2.)  A folder is created in the user's home directory called PYENV.
+1.)  A folder is created in the current directory called PYENV.
      this will serve as a virtual environment for python, and will
      be the location of the virtual python environment and the django
      installation (more description on a virtual environment and how
      to use it (and love it!) follows).
 
-3.)  After the virtual environment is installed, pip (a python package
+2.)  After the virtual environment is installed, pip (a python package
      installer) is used to install django from the folder that was
      downloaded from git (at the user's discretion, of course).  It 
      will be installed in the python package folder within the PYENV folder.
+
+3.)  If you'd like to run python through the virtual environment, simply
+     source the "activate" file in PYENV:
+
+     source ./PYENV/bin/activate
+
+     Then there'll be a really ugly bit of text that will let you know
+     you're running the virtual environment.
 
 =========== WTF IS A VIRTUAL ENVIRONMENT AND WHY DO I WANT IT? ==========
 
