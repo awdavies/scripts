@@ -1,0 +1,29 @@
+#!/bin/bash
+#xrdb -merge .Xresources # Merge x resources.
+# Set the font properly.
+xset +fp /usr/share/fonts/local
+xset fp rehash
+
+# Make the point NOT be an X.
+xsetroot -cursor_name left_ptr
+
+# UNCOMMENT THESE ONLY IF OTHER THINGS
+# DON'T WORK OUT TOO WELL.
+# Stuff for making scim work.
+export XMODIFIERS=@im=SCIM
+export GTK_IM_MODULE="scim-bridge"
+export GTK_IM_MODULE_FILE="~/.immodules"
+export QT_IM_MODULE="scim-bridge"
+export LC_CTYPE="en_US.UTF-8"
+# start up the input daemon thing for Japanese input.
+scim -d
+
+#export GTK_IM_MODULE="ibus"
+#export GTK_IM_MODULE_FILE="/home/andrew/.immodules"
+#export QT_IM_MODULE="ibus"
+
+#ibus-daemon -x -d
+echo "--* No IRC Messages Yet *--" > $HOME/.irssi_pipe &
+
+herbstluftwm
+
