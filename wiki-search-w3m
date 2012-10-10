@@ -1,0 +1,47 @@
+#!/usr/bin/env perl
+#
+# Copyright 2012 -- Andrew Davies <andavies@cs.washington.edu>
+#
+# This script opens up the arch wiki inside of w3m.  It's super simple.
+# It also opens up a menu regarding which page to open.
+#
+# This script requires arch-wiki-lite and arch-wiki-docs, as well as w3m.
+use strict;
+use warnings;
+
+my $BROWSER="w3m";
+
+local $| = 1;   # auto flush output.
+
+if (scalar(@ARGV) != 1) {
+  PrintUsage();
+}
+
+my $pages=`wiki-search-html $ARGV[0]`;
+print $pages."\n";
+my @options = split "\n", $pages;
+print "Which File? [0-", $#options, "] ";
+my $in;
+do {
+  $in = &prompt;
+} while (!(0 <= int($in) and int($in) <= $#options) and print "[0-", $#options, " ]");
+
+my $html_file = $options[$in];
+$html_file =~ s/^.*?(\d+\.html)$/$1/g;
+
+system('export $wiki_browser="'.$BROWSER.'"');
+system("wiki-search-html $html_file");
+
+######### SUBROUTINES #############
+
+sub PrintUsage {
+  print "Usage: $0 [search phrase]\n";
+  exit 1;
+}
+
+# The holy prompt.
+sub prompt {
+  my $in = <STDIN>;
+  chomp $in;
+  $in;
+}
