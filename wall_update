@@ -1,0 +1,95 @@
+#!/usr/bin/env perl
+# -*-perl-*-
+#
+# This here dorkly script changes the wallpaper.  Make sure you have
+# descriptive names for them, otherwise you'll be very lost....
+# this also requires that you have feh installed.
+# (I don't even know why I'm writing this like anyone else would use it).
+
+use strict;
+use warnings;
+
+local $| = 1; # Auto flush output.
+system("clear"); # clear the screen.
+
+my $HOME = $ENV{'HOME'};       ; # your home directory.
+my $PICDIR = "$HOME\/pictures/"; # pictures directory.
+my $WALLFILE = "$HOME\/.wallpaper";
+my $CMD = "feh --bg-scale"; # wallpaper command.
+my $EVAL = 1; # true to always switch the wall live.
+
+# Don't run this unless the folder exists.
+print "$PICDIR does not exist!\n" and exit if ! -d $PICDIR;
+print "Imma switch yer wallpaper!\n";
+
+######### MAIN #########
+
+# Attempt to switch the wallpaper.  If possible,
+# do so, else exit (when errors are encountered, etc.
+
+my @pics = &getImages(); # The list of picture files (ignoring extensions).
+if (@pics) {
+
+  # Print out the files with the corresponding
+  # number of each file.
+  my $num = 0;
+  for (@pics) {
+    $num++;
+    print "($num)\t--\t".$_."\n";
+  }
+
+  print "\nWhich picture [1-",$#pics + 1,"] ";
+  
+  # Prompt for a number until valid input is given.
+  my $in;
+  do {
+    $in = &prompt;
+  } while (!(0 < int($in) and int($in) <= $#pics + 1) and print "[1-",$#pics + 1," ]");
+
+  # Switch the wallpaper in the $WALLFILE.
+  my $pic = $pics[$in - 1];
+  &switchWall($pic) if ($EVAL);
+} else {
+  print "Your directory was empty :(\n";
+  exit;
+}
+
+# Evaluate the wallpaper thing, if the option is on.
+`eval \`cat $WALLFILE \` \&` if ($EVAL);
+
+
+######### SUBROUTINES #########
+
+# Grabs and returns all of the images 
+# from the image folder.
+#
+# Pre: the global folder must exist.
+sub getImages {
+  opendir(my $dir, $PICDIR) or die("Could not open directory: $!");
+  my @files = readdir($dir) or die("Could not read directory: $!");
+  closedir($dir);
+
+  # Ignore the . and .. files as well as hidden files and such.
+  @files = grep {!/^\.{1,2}/} @files;
+
+  # Return the sorted files.
+  sort @files;
+}
+
+# The holy prompt.
+sub prompt {
+  my $in = <STDIN>;
+  chomp $in;
+  $in;
+}
+
+# Does the ol' switcheroo.
+# runs the wallpaper software
+# (in this case (feh) as well.
+sub switchWall {
+  my $pic = shift;
+  my $fileName = $PICDIR.$pic;
+  open my $fh, ">utf8", $WALLFILE or die ("Could not write to file: $!");
+  print $fh $CMD." ".$fileName or die ("Could not write to file: $!");
+  close $fh;
+}
