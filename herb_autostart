@@ -84,8 +84,8 @@ hc set frame_border_active_color '#fff740'
 hc set frame_border_normal_color '#666666'
 hc set frame_bg_active_color '#000000'
 hc set frame_bg_normal_color '#000000'
-hc set frame_border_width 1
-hc set window_gap 10
+hc set frame_border_width 0
+hc set window_gap 0
 hc set gapless_grid 0
 hc set window_border_width 2
 hc set window_border_normal_color '#111111'
@@ -110,6 +110,6 @@ hc rule class=Opera tag=2
 hc rule class~'(MPlayer|Vlc)' tag=3 fullscreen=on
 
 ## if you want to start a panel, do so here
-hc pad 0 18 0 0
-hlwm-xmobar
+#hc pad 0 18 0 0
+#hlwm-xmobar
 # tint2 &
